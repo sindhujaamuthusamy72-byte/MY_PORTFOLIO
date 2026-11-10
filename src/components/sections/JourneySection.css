@@ -1,0 +1,392 @@
+.journey-section {
+  position: relative;
+  background-color: var(--scarlet-bg);
+  border-bottom: 1px solid var(--scarlet-border);
+  overflow-x: clip;
+  isolation: isolate;
+}
+
+/* Full-Section Flying Silhouette & Scroll-Waving Cloth Canvas Layer
+   IMPORTANT: Use `overflow: clip` (never `overflow: hidden`) so `position: sticky` works continuously through all 5 chapters */
+.journey-flying-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: clip;
+}
+
+.journey-flying-sticky-frame {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  background-color: transparent;
+}
+
+/* Subtle backlit crimson rim atmosphere behind her dark silhouette */
+.journey-flying-silhouette-aura {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 34% 38% at 70% 42%,
+      rgba(179, 33, 60, 0.22) 0%,
+      rgba(85, 19, 33, 0.12) 45%,
+      transparent 75%
+    ),
+    radial-gradient(
+      ellipse 52% 46% at 30% 56%,
+      rgba(120, 14, 34, 0.14) 0%,
+      transparent 74%
+    );
+  opacity: 0;
+  transition: opacity 1.5s var(--ease-editorial);
+}
+
+.journey-section.is-entered .journey-flying-silhouette-aura {
+  opacity: 1;
+}
+
+.journey-flying-artwork-stage {
+  position: relative;
+  z-index: 2;
+  width: min(116vw, 1460px);
+  max-width: 1520px;
+  aspect-ratio: 647 / 422;
+  opacity: 0;
+  transform: translate3d(2%, 1%, 0) scale(0.985);
+  transition:
+    opacity 1.35s var(--ease-editorial),
+    transform 1.5s var(--ease-editorial);
+  -webkit-mask-image: radial-gradient(ellipse 92% 88% at 48% 50%, #000 72%, transparent 100%);
+  mask-image: radial-gradient(ellipse 92% 88% at 48% 50%, #000 72%, transparent 100%);
+}
+
+.journey-section.is-entered .journey-flying-artwork-stage {
+  opacity: 0.92;
+  transform: translate3d(2%, -1%, 0) scale(1);
+}
+
+.journey-flying-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+.journey-flying-edge-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    #080608 0%,
+    rgba(8, 6, 8, 0.28) 9%,
+    transparent 20%,
+    transparent 82%,
+    rgba(8, 6, 8, 0.34) 92%,
+    #080608 100%
+  );
+}
+
+/* Keep Timeline Content Unobstructed in the Foreground */
+.journey-content-foreground {
+  position: relative;
+  z-index: 4;
+}
+
+/* Red Cursive Accent for "Five Chapters" in Journey Heading */
+.journey-chapters-cursive {
+  font-family: 'Great Vibes', 'Cormorant Garamond', cursive;
+  color: #D62849;
+  text-transform: none;
+  font-size: 1.44em;
+  font-weight: 400;
+  letter-spacing: 0.015em;
+  line-height: 0.95;
+  display: inline-block;
+  margin-right: 0.14em;
+  text-shadow: 0 0 24px rgba(179, 33, 60, 0.45);
+}
+
+.journey-timeline-wrapper {
+  position: relative;
+  padding-left: 5rem;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* Spine Track */
+.timeline-spine-track {
+  position: absolute;
+  top: 10px;
+  bottom: 30px;
+  left: 24px;
+  width: 2px;
+  background: rgba(217, 200, 196, 0.12);
+}
+
+.timeline-spine-fill {
+  width: 100%;
+  background: linear-gradient(180deg, var(--scarlet-primary) 0%, #ff2b54 100%);
+  box-shadow: 0 0 14px var(--scarlet-primary);
+  transition: height 0.1s linear;
+}
+
+.timeline-spine-glow-head {
+  position: absolute;
+  left: -5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff2b54;
+  box-shadow: 0 0 18px #ff2b54, 0 0 35px var(--scarlet-primary);
+  transform: translateY(-50%);
+  transition: top 0.1s linear;
+}
+
+/* Chapters Stack */
+.journey-chapters-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.chapter-entry {
+  position: relative;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.8s var(--ease-editorial) var(--chapter-delay, 0s),
+    transform 0.8s var(--ease-editorial) var(--chapter-delay, 0s);
+}
+
+.journey-section.is-entered .chapter-entry {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapter-entry,
+  .journey-flying-silhouette-aura,
+  .journey-flying-artwork-stage {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .journey-flying-artwork-stage {
+    opacity: 0.85 !important;
+    transform: translate3d(2%, -1%, 0) !important;
+  }
+}
+
+/* Node */
+.chapter-node {
+  position: absolute;
+  top: 24px;
+  left: -5rem;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.node-number {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--scarlet-rose);
+  background: #090609;
+  border: 1px solid var(--scarlet-border);
+  padding: 5px 8px;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.chapter-entry.active .node-number,
+.chapter-entry:hover .node-number {
+  color: var(--scarlet-ivory);
+  border-color: var(--scarlet-primary);
+  background: var(--scarlet-crimson-deep);
+  box-shadow: 0 0 15px rgba(179, 33, 60, 0.5);
+}
+
+/* Card Inner */
+.chapter-card-inner {
+  padding: 3rem 3.5rem;
+  background: rgba(11, 7, 10, 0.65);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--scarlet-border);
+  border-radius: 4px;
+  transition: all 0.4s var(--ease-editorial);
+  position: relative;
+  overflow: hidden;
+}
+
+.chapter-card-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.chapter-entry.active .chapter-card-inner {
+  border-color: rgba(179, 33, 60, 0.55);
+  background: radial-gradient(circle at 10% 20%, rgba(85, 19, 33, 0.42) 0%, rgba(12, 8, 11, 0.72) 100%);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.65), 0 0 30px rgba(179, 33, 60, 0.22);
+  transform: translateX(6px);
+}
+
+.chapter-entry.active .chapter-card-inner::before {
+  background: var(--scarlet-primary);
+  box-shadow: 0 0 12px var(--scarlet-primary);
+}
+
+.chapter-entry:hover .chapter-card-inner {
+  border-color: var(--scarlet-border-hover);
+}
+
+.chapter-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.chapter-badge-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.chapter-year {
+  font-family: var(--font-serif-display);
+  font-size: 1.45rem;
+  color: var(--scarlet-primary);
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.chapter-grade {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  color: var(--scarlet-rose);
+  text-transform: uppercase;
+}
+
+.chapter-index-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.24em;
+  color: var(--scarlet-rose);
+  opacity: 0.6;
+}
+
+.chapter-score-hero {
+  font-family: var(--font-serif-display);
+  font-size: clamp(2.4rem, 4.5vw, 3.5rem);
+  color: var(--scarlet-ivory);
+  margin: 0 0 1.5rem 0;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.chapter-distinctions-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.distinction-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid var(--scarlet-border);
+  background: rgba(244, 238, 233, 0.03);
+  color: var(--scarlet-rose);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.distinction-badge.highlight {
+  border-color: var(--scarlet-primary);
+  background: rgba(85, 19, 33, 0.35);
+  color: var(--scarlet-ivory);
+  box-shadow: 0 0 15px rgba(179, 33, 60, 0.25);
+}
+
+.dist-icon {
+  color: var(--scarlet-primary);
+  font-size: 0.65rem;
+}
+
+.chapter-narrative-text {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--scarlet-rose);
+  margin: 0;
+  font-weight: 300;
+}
+
+@media (max-width: 1024px) {
+  .journey-section.is-entered .journey-flying-artwork-stage {
+    width: 130vw;
+    opacity: 0.78;
+    transform: translate3d(-4%, 0, 0) scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .journey-timeline-wrapper {
+    padding-left: 2rem;
+  }
+
+  .timeline-spine-track {
+    left: 4px;
+  }
+
+  .chapter-node {
+    left: -2rem;
+    width: 28px;
+  }
+
+  .node-number {
+    font-size: 0.6rem;
+    padding: 3px 5px;
+  }
+
+  .chapter-card-inner {
+    padding: 2rem 1.5rem;
+  }
+
+  .journey-section.is-entered .journey-flying-artwork-stage {
+    width: 175vw;
+    opacity: 0.68;
+    transform: translate3d(-10%, -2%, 0) scale(1);
+  }
+}
+

@@ -1,0 +1,648 @@
+.contact-section {
+  position: relative;
+  background-color: var(--scarlet-bg);
+  overflow-x: clip;
+  padding-bottom: 3rem;
+  isolation: isolate;
+}
+
+/* Ambient Cloth Glow in Pure Dark Space (Echoing Hero Without Touching Video) */
+.contact-ambient-cloth-glow {
+  position: absolute;
+  top: 22%;
+  left: 62%;
+  transform: translate(-50%, -20%);
+  width: 820px;
+  height: 560px;
+  background: radial-gradient(ellipse at center, rgba(179, 33, 60, 0.22) 0%, rgba(85, 19, 33, 0.14) 45%, transparent 75%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(50px);
+  animation: subtleClothFloat 12s ease-in-out infinite alternate;
+}
+
+@keyframes subtleClothFloat {
+  0% {
+    transform: translate(-50%, -20%) scale(0.95);
+    opacity: 0.78;
+  }
+  100% {
+    transform: translate(-48%, -16%) scale(1.06);
+    opacity: 0.96;
+  }
+}
+
+/* Keep .relative-z non-isolated inside ContactSection so butterfly mix-blend-mode: screen blends directly into #contact */
+.contact-section .relative-z {
+  position: relative;
+  z-index: auto;
+}
+
+/* Two-Column Contact Stage: Left Crimson Butterfly + Right Existing Card */
+.contact-cinematic-stage {
+  display: grid;
+  grid-template-columns: minmax(340px, 0.95fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 3.6vw, 4rem);
+  align-items: center;
+  margin-bottom: 5rem;
+}
+
+/* ==========================================================================
+   LEFT COLUMN: CRIMSON BUTTERFLY ENTRANCE & 3D FLUTTER
+   ========================================================================== */
+.contact-butterfly-column {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 300px;
+}
+
+.contact-butterfly-ambient-halo {
+  position: absolute;
+  inset: -14% -8%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 48% 45% at 50% 50%,
+    rgba(90, 12, 28, 0.08) 0%,
+    rgba(135, 18, 42, 0.2) 38%,
+    rgba(179, 33, 60, 0.1) 62%,
+    transparent 80%
+  );
+  filter: blur(28px);
+  opacity: 0;
+  transform: scale(0.86);
+  transition:
+    opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-section.is-entered .contact-butterfly-ambient-halo {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* mix-blend-mode: screen sits directly on the outermost animated carrier so it blends cleanly onto #contact */
+.contact-butterfly-entrance {
+  position: relative;
+  width: min(108%, 640px);
+  aspect-ratio: 1408 / 768;
+  mix-blend-mode: screen;
+  opacity: 0;
+  transform: translate3d(-44px, 28px, 0) scale(0.84) rotate(-6deg);
+  transition:
+    opacity 1.55s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.contact-section.is-entered .contact-butterfly-entrance {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1) rotate(-2deg);
+}
+
+.contact-butterfly-float {
+  width: 100%;
+  height: 100%;
+}
+
+.contact-section.is-entered .contact-butterfly-float {
+  animation: butterflyHoverFloat 6.2s ease-in-out infinite;
+}
+
+.contact-butterfly-blend-shell {
+  width: 100%;
+  height: 100%;
+}
+
+.contact-butterfly-rig {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.contact-butterfly-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  backface-visibility: hidden;
+  will-change: transform, filter;
+}
+
+/* Anatomical 3-layer split preserving antennae, thorax & clean wing hinges */
+.contact-butterfly-wing--left {
+  clip-path: polygon(
+    8% 0%,
+    41.2% 0%,
+    41.2% 18%,
+    43% 24%,
+    45% 28%,
+    47.2% 32%,
+    48% 38%,
+    48.2% 52%,
+    48.8% 78%,
+    48.8% 100%,
+    8% 100%
+  );
+  transform-origin: 48.2% 50%;
+  z-index: 2;
+}
+
+.contact-butterfly-wing--right {
+  clip-path: polygon(
+    58.8% 0%,
+    89.2% 0%,
+    89.2% 100%,
+    51.2% 100%,
+    51.2% 78%,
+    51.8% 52%,
+    52% 38%,
+    52.8% 32%,
+    55% 28%,
+    57% 24%,
+    58.8% 18%
+  );
+  transform-origin: 51.8% 50%;
+  z-index: 2;
+}
+
+.contact-butterfly-body {
+  clip-path: polygon(
+    41% 0%,
+    59% 0%,
+    59% 18%,
+    57.2% 24%,
+    55.2% 28%,
+    53% 32%,
+    52.6% 38%,
+    52.4% 52%,
+    51.8% 78%,
+    51.8% 100%,
+    48.2% 100%,
+    48.2% 78%,
+    47.6% 52%,
+    47.4% 38%,
+    47% 32%,
+    44.8% 28%,
+    42.8% 24%,
+    41% 18%
+  );
+  z-index: 3;
+}
+
+.contact-section.is-entered .contact-butterfly-wing--left {
+  animation: butterflyWingLeft 4.2s ease-in-out infinite;
+}
+
+.contact-section.is-entered .contact-butterfly-wing--right {
+  animation: butterflyWingRight 4.2s ease-in-out infinite;
+}
+
+@keyframes butterflyHoverFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(4px, -10px, 0) rotate(1.6deg);
+  }
+}
+
+@keyframes butterflyWingLeft {
+  0%,
+  100% {
+    transform: perspective(1100px) rotateY(4deg);
+    filter: brightness(1.03);
+  }
+  20% {
+    transform: perspective(1100px) rotateY(46deg);
+    filter: brightness(0.95);
+  }
+  38% {
+    transform: perspective(1100px) rotateY(7deg);
+    filter: brightness(1.06);
+  }
+  56% {
+    transform: perspective(1100px) rotateY(34deg);
+    filter: brightness(0.97);
+  }
+  74% {
+    transform: perspective(1100px) rotateY(3deg);
+    filter: brightness(1.05);
+  }
+  88% {
+    transform: perspective(1100px) rotateY(15deg);
+    filter: brightness(1);
+  }
+}
+
+@keyframes butterflyWingRight {
+  0%,
+  100% {
+    transform: perspective(1100px) rotateY(-4deg);
+    filter: brightness(1.03);
+  }
+  20% {
+    transform: perspective(1100px) rotateY(-46deg);
+    filter: brightness(0.95);
+  }
+  38% {
+    transform: perspective(1100px) rotateY(-7deg);
+    filter: brightness(1.06);
+  }
+  56% {
+    transform: perspective(1100px) rotateY(-34deg);
+    filter: brightness(0.97);
+  }
+  74% {
+    transform: perspective(1100px) rotateY(-3deg);
+    filter: brightness(1.05);
+  }
+  88% {
+    transform: perspective(1100px) rotateY(-15deg);
+    filter: brightness(1);
+  }
+}
+
+/* ==========================================================================
+   RIGHT COLUMN: EXISTING CONTACT CARD & STAGGERED REVEAL
+   ========================================================================== */
+.contact-centerpiece-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: clamp(2.4rem, 3.6vw, 3.75rem) clamp(1.85rem, 3.2vw, 3.25rem);
+  background: rgba(13, 8, 11, 0.82);
+  border: 1px solid var(--scarlet-border);
+  backdrop-filter: blur(16px);
+  border-radius: 4px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8), 0 0 40px rgba(85, 19, 33, 0.35);
+  transition: all 0.4s var(--ease-editorial);
+}
+
+.contact-stagger-item {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.85s var(--ease-editorial) var(--stagger-delay, 0s),
+    transform 0.85s var(--ease-editorial) var(--stagger-delay, 0s);
+}
+
+.contact-section.is-entered .contact-stagger-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact-centerpiece-card:hover {
+  border-color: var(--scarlet-primary);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(179, 33, 60, 0.4);
+}
+
+.contact-kicker-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  color: var(--scarlet-primary);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.contact-lead-display {
+  font-family: var(--font-serif-display);
+  font-size: clamp(1.5rem, 2.35vw, 2.25rem);
+  color: var(--scarlet-ivory);
+  letter-spacing: 0.03em;
+  line-height: 1.24;
+  margin: 0 0 1.5rem 0;
+}
+
+.display-crimson-italic {
+  display: block;
+  margin-top: 0.45rem;
+  padding: 0.08em 0 0.14em;
+  color: #D62849;
+  font-family: 'Great Vibes', 'Cormorant Garamond', cursive;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5em;
+  line-height: 1.1;
+  letter-spacing: 0.015em;
+  text-transform: none;
+  text-shadow: 0 0 24px rgba(179, 33, 60, 0.45);
+}
+
+.contact-narrative-sub {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--scarlet-rose);
+  max-width: 680px;
+  margin: 0 0 3rem 0;
+  font-weight: 300;
+}
+
+/* Email Interactive Bar */
+.contact-email-interactive-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 12px 28px;
+  background: rgba(85, 19, 33, 0.3);
+  border: 1px solid var(--scarlet-primary);
+  border-radius: 999px;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 0 25px rgba(179, 33, 60, 0.25);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.email-label-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.email-icon-svg {
+  color: var(--scarlet-primary);
+  font-size: 1rem;
+}
+
+.email-anchor {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--scarlet-ivory);
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.copy-trigger-pill {
+  padding: 6px 16px;
+  background: var(--scarlet-primary);
+  border: none;
+  color: var(--scarlet-ivory);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.copy-trigger-pill:hover {
+  background: #ff2b54;
+  box-shadow: 0 0 15px rgba(255, 43, 84, 0.5);
+}
+
+/* Action Buttons */
+.contact-action-buttons {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.contact-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: var(--scarlet-crimson-deep);
+  border: 1px solid var(--scarlet-primary);
+  color: var(--scarlet-ivory);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  letter-spacing: 0.22em;
+  font-weight: 600;
+  border-radius: 999px;
+  transition: all 0.35s ease;
+  box-shadow: 0 0 30px rgba(179, 33, 60, 0.35);
+}
+
+.contact-primary-btn:hover {
+  background: var(--scarlet-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 0 45px rgba(179, 33, 60, 0.65);
+}
+
+.contact-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: transparent;
+  border: 1px solid var(--scarlet-border);
+  color: var(--scarlet-ivory);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  letter-spacing: 0.22em;
+  font-weight: 600;
+  border-radius: 999px;
+  transition: all 0.35s ease;
+}
+
+.contact-secondary-btn:hover {
+  border-color: var(--scarlet-primary);
+  background: rgba(85, 19, 33, 0.2);
+}
+
+.btn-down-arrow,
+.btn-ext-arrow {
+  color: #ff2b54;
+  font-weight: 700;
+}
+
+/* Platforms Matrix */
+.verified-platforms-matrix {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--scarlet-border);
+}
+
+.matrix-title {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.24em;
+  color: var(--scarlet-rose);
+  opacity: 0.75;
+}
+
+.matrix-chips-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.matrix-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: #090609;
+  border: 1px solid var(--scarlet-border);
+  color: var(--scarlet-rose);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  border-radius: 2px;
+  transition: all 0.25s ease;
+}
+
+.matrix-chip:hover {
+  border-color: var(--scarlet-primary);
+  color: var(--scarlet-ivory);
+  background: rgba(85, 19, 33, 0.25);
+  box-shadow: 0 0 15px rgba(179, 33, 60, 0.25);
+}
+
+.chip-arrow {
+  color: var(--scarlet-primary);
+  font-weight: 700;
+}
+
+/* Closing Footer */
+.scarlet-editorial-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 3.5rem;
+  border-top: 1px solid var(--scarlet-border);
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer-col-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer-signature {
+  font-family: var(--font-serif-display);
+  font-size: 1rem;
+  letter-spacing: 0.16em;
+  color: var(--scarlet-ivory);
+  font-weight: 700;
+}
+
+.footer-detail-meta {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: var(--scarlet-rose);
+  opacity: 0.8;
+}
+
+.footer-copyright {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--scarlet-primary);
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .contact-cinematic-stage {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .contact-butterfly-column {
+    min-height: 210px;
+  }
+
+  .contact-butterfly-entrance {
+    width: min(100%, 440px);
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-butterfly-column {
+    min-height: 165px;
+  }
+
+  .contact-butterfly-entrance {
+    width: min(100%, 335px);
+  }
+
+  .contact-centerpiece-card {
+    padding: 2.75rem 1.5rem;
+  }
+
+  .contact-lead-display {
+    font-size: clamp(1.32rem, 5.2vw, 1.85rem);
+  }
+
+  .display-crimson-italic {
+    font-size: 1.42em;
+  }
+
+  .contact-email-interactive-bar {
+    flex-direction: column;
+    padding: 14px 20px;
+    gap: 10px;
+    max-width: 100%;
+  }
+
+  .email-anchor {
+    word-break: break-word;
+  }
+
+  .contact-action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .contact-primary-btn,
+  .contact-secondary-btn {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .scarlet-editorial-footer {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-ambient-cloth-glow,
+  .contact-butterfly-float,
+  .contact-butterfly-wing--left,
+  .contact-butterfly-wing--right {
+    animation: none !important;
+  }
+
+  .contact-butterfly-ambient-halo,
+  .contact-butterfly-entrance,
+  .contact-stagger-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+

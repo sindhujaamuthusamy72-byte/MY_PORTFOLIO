@@ -1,0 +1,187 @@
+/* ==========================================================================
+   APP GLOBAL LAYOUT & UTILITIES — THE SCARLET EXPERIENCE
+   ========================================================================== */
+
+.portfolio-body {
+  background-color: var(--scarlet-bg, #080608);
+  color: var(--scarlet-ivory, #F4EEE9);
+  width: 100%;
+  position: relative;
+}
+
+/* Common Section Layout */
+.scarlet-section {
+  width: 100%;
+  padding: var(--section-padding);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.section-container {
+  max-width: var(--content-max-width, 1360px);
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+}
+
+/* ==========================================================================
+   STICKY SECTION DIRECTORY NAVIGATION BAR
+   ========================================================================== */
+.scarlet-sticky-directory {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background: rgba(8, 6, 8, 0.92);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(179, 33, 60, 0.35);
+  border-bottom: 1px solid var(--scarlet-border);
+  padding: 0.9rem 2rem;
+  box-sizing: border-box;
+  overflow-x: auto;
+  scrollbar-width: none;
+  transition: all 0.3s ease;
+}
+
+.scarlet-sticky-directory::-webkit-scrollbar {
+  display: none;
+}
+
+.directory-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  white-space: nowrap;
+}
+
+.directory-link {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--scarlet-rose);
+  text-decoration: none;
+  transition: all 0.25s ease;
+  font-weight: 500;
+  padding: 4px 6px;
+  position: relative;
+}
+
+.directory-link:hover,
+.directory-link.active {
+  color: var(--scarlet-ivory);
+}
+
+.directory-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--scarlet-primary);
+  box-shadow: 0 0 10px var(--scarlet-primary);
+}
+
+.directory-sep-slash {
+  color: rgba(179, 33, 60, 0.4);
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+}
+
+@media (max-width: 900px) {
+  .directory-nav-inner {
+    justify-content: flex-start;
+  }
+}
+
+/* ==========================================================================
+   SHARED CONTINUOUS STICKY STUDENT CAP BACKDROP (04 PURPOSEFUL PLATFORMS + 05 LEADERSHIP)
+   ========================================================================== */
+.platforms-leadership-band {
+  position: relative;
+  background-color: var(--scarlet-bg, #080608);
+  overflow-x: clip;
+  isolation: isolate;
+}
+
+.student-cap-shared-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.student-cap-sticky-stage {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--scarlet-bg, #080608);
+  background-image: radial-gradient(
+    ellipse 46% 44% at 50% 50%,
+    rgba(130, 18, 42, 0.16) 0%,
+    rgba(85, 19, 33, 0.08) 45%,
+    transparent 76%
+  );
+}
+
+/* Blend #000000 cap canvas seamlessly onto sticky #080608 surface & mask bottom-right star */
+.student-cap-media-shell {
+  position: relative;
+  width: min(86vw, 1140px);
+  aspect-ratio: 1408 / 768;
+  mix-blend-mode: screen;
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity 1.35s var(--ease-editorial, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform 1.5s var(--ease-editorial, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.platforms-leadership-band.is-cap-entered .student-cap-media-shell {
+  opacity: 0.62;
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .student-cap-media-shell {
+    opacity: 0.62 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+.student-cap-media-shell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 91.4% 84.3%,
+    #000000 0%,
+    #000000 3.8%,
+    transparent 8.8%
+  );
+}
+
+.student-cap-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: contrast(106%) saturate(108%);
+}
+
+@media (max-width: 768px) {
+  .student-cap-media-shell {
+    width: min(98vw, 540px);
+    opacity: 0.44;
+  }
+}

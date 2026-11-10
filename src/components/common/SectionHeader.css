@@ -1,0 +1,57 @@
+.scarlet-section-header {
+  width: 100%;
+  margin-bottom: 3.5rem;
+  border-bottom: 1px solid var(--scarlet-border);
+  padding-bottom: 1.5rem;
+  position: relative;
+}
+
+.section-rubric-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.75rem;
+}
+
+.section-rubric-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  color: var(--scarlet-primary);
+  font-weight: 700;
+}
+
+.section-rubric-divider {
+  color: var(--scarlet-border);
+  font-size: 0.72rem;
+}
+
+.section-rubric-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.26em;
+  color: var(--scarlet-rose);
+  text-transform: uppercase;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.section-rubric-title {
+  font-family: var(--font-serif-display);
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  color: var(--scarlet-ivory);
+  letter-spacing: 0.04em;
+  margin: 0.5rem 0 0.5rem 0;
+  line-height: 1.15;
+}
+
+.section-rubric-subtitle {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  color: var(--scarlet-rose);
+  margin: 0;
+  font-weight: 400;
+  max-width: 680px;
+  line-height: 1.65;
+}
+

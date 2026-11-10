@@ -1,0 +1,387 @@
+.achievements-section {
+  position: relative;
+  background-color: var(--scarlet-bg);
+  border-bottom: 1px solid var(--scarlet-border);
+  overflow-x: clip;
+}
+
+/* ==========================================================================
+   FULL-SECTION BACKGROUND DRAGON VIDEO LAYER
+   ========================================================================== */
+.achievements-dragon-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-color: #000000;
+}
+
+.achievements-dragon-sticky-viewport {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #000000;
+}
+
+.achievements-dragon-bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+  display: block;
+  filter: contrast(106%) saturate(108%);
+}
+
+/* Seamless edge blends into adjacent dark obsidian sections */
+.achievements-dragon-bg-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      #080608 0%,
+      rgba(8, 6, 8, 0.35) 9%,
+      transparent 22%,
+      transparent 82%,
+      rgba(8, 6, 8, 0.4) 92%,
+      #080608 100%
+    ),
+    radial-gradient(circle at 90.8% 83.2%, #000000 0%, #000000 3%, transparent 9%);
+}
+
+/* Subtle readability veil applied ONLY after dragon spits fire and text appears */
+.achievements-dragon-readability-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: rgba(8, 6, 8, 0.42);
+  opacity: 0;
+  transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.achievements-section.is-text-revealed .achievements-dragon-readability-scrim {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   FOREGROUND ACHIEVEMENTS CONTENT (REVEALS AS DRAGON SPITS FIRE)
+   ========================================================================== */
+.achievements-foreground {
+  position: relative;
+  z-index: 5;
+  opacity: 0;
+  transform: translateY(22px);
+  pointer-events: none;
+  transition:
+    opacity 1.15s var(--ease-editorial),
+    transform 1.15s var(--ease-editorial);
+}
+
+.achievements-foreground.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.achievements-foreground .section-rubric-title,
+.achievements-foreground .section-rubric-subtitle {
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.92);
+}
+
+/* Featured Plaque (Translucent dark glass preserving dragon background glow) */
+.featured-plaque-container {
+  position: relative;
+  border: 1px solid var(--scarlet-primary);
+  background: radial-gradient(circle at 85% 15%, rgba(85, 19, 33, 0.52) 0%, rgba(11, 7, 10, 0.78) 75%);
+  backdrop-filter: blur(8px);
+  padding: 3.25rem 3.75rem;
+  border-radius: 4px;
+  margin-bottom: 3.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(179, 33, 60, 0.3);
+  transition: all 0.4s var(--ease-editorial);
+}
+
+.featured-plaque-container:hover {
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 50px rgba(179, 33, 60, 0.45);
+  transform: translateY(-2px);
+}
+
+.plaque-corner-accent {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #ff2b54;
+  pointer-events: none;
+}
+
+.plaque-corner-accent.top-left {
+  top: -2px;
+  left: -2px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.plaque-corner-accent.bottom-right {
+  bottom: -2px;
+  right: -2px;
+  border-left: none;
+  border-top: none;
+}
+
+.plaque-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.plaque-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  color: #ff2b54;
+  font-weight: 700;
+}
+
+.plaque-rank-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  padding: 6px 18px;
+  background: var(--scarlet-crimson-deep);
+  border: 1px solid var(--scarlet-primary);
+  color: var(--scarlet-ivory);
+  border-radius: 999px;
+  font-weight: 600;
+  box-shadow: 0 0 15px rgba(179, 33, 60, 0.4);
+}
+
+.plaque-body {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.plaque-main-title {
+  font-family: var(--font-serif-display);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  color: var(--scarlet-ivory);
+  margin: 0 0 1rem 0;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+}
+
+.plaque-description {
+  font-family: var(--font-sans);
+  font-size: 1.02rem;
+  line-height: 1.8;
+  color: var(--scarlet-rose);
+  margin: 0 0 2rem 0;
+  font-weight: 300;
+}
+
+.plaque-honors-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.honor-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.honor-bullet {
+  color: var(--scarlet-primary);
+  font-size: 0.7rem;
+}
+
+.honor-text {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  color: var(--scarlet-ivory);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Metrics Grid */
+.plaque-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.4rem;
+}
+
+.metric-cube {
+  padding: 1.85rem 1.4rem;
+  background: rgba(8, 6, 8, 0.65);
+  border: 1px solid var(--scarlet-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 6px;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.metric-cube:hover {
+  border-color: var(--scarlet-border-hover);
+  background: rgba(85, 19, 33, 0.25);
+}
+
+.metric-cube.highlight {
+  border-color: rgba(179, 33, 60, 0.6);
+  background: rgba(85, 19, 33, 0.32);
+}
+
+.metric-cube.highlight-crimson {
+  border-color: var(--scarlet-primary);
+  background: rgba(85, 19, 33, 0.42);
+  box-shadow: 0 0 20px rgba(179, 33, 60, 0.28);
+}
+
+.metric-cube-val {
+  font-family: var(--font-serif-display);
+  font-size: clamp(1.9rem, 3vw, 2.75rem);
+  color: var(--scarlet-ivory);
+  letter-spacing: 0.02em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.metric-cube-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--scarlet-rose);
+}
+
+/* Other Achievements Grid (2x2 clean layout) */
+.other-achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.achievement-card-item {
+  padding: 2.35rem 2.15rem;
+  background: rgba(11, 7, 10, 0.78);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--scarlet-border);
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+  cursor: pointer;
+  transition: all 0.35s var(--ease-editorial);
+}
+
+.achievement-card-item:hover {
+  border-color: var(--scarlet-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), 0 0 20px rgba(179, 33, 60, 0.22);
+}
+
+.achievement-card-item.expanded {
+  border-color: var(--scarlet-primary);
+  background: radial-gradient(circle at 10% 10%, rgba(85, 19, 33, 0.38) 0%, rgba(13, 8, 11, 0.88) 100%);
+}
+
+.card-top-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.card-category-tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  color: var(--scarlet-primary);
+  font-weight: 700;
+}
+
+.card-expand-hint {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: var(--scarlet-rose);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.card-item-title {
+  font-family: var(--font-serif-display);
+  font-size: 1.4rem;
+  color: var(--scarlet-ivory);
+  margin: 0;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+}
+
+.card-highlight-badge {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ff2b54;
+  letter-spacing: 0.1em;
+}
+
+.card-description-text {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--scarlet-rose);
+  margin: 0;
+  font-weight: 300;
+  white-space: pre-line;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .achievements-dragon-bg-video {
+    object-position: 32% center;
+  }
+
+  .plaque-body {
+    grid-template-columns: 1fr;
+    gap: 2.75rem;
+  }
+
+  .other-achievements-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .achievements-dragon-bg-video {
+    object-position: 28% center;
+  }
+
+  .featured-plaque-container {
+    padding: 2.25rem 1.75rem;
+  }
+
+  .plaque-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .achievements-foreground,
+  .achievements-dragon-readability-scrim {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

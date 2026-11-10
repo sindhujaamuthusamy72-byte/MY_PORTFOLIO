@@ -1,0 +1,677 @@
+/* ==========================================================================
+   HERO SECTION STYLES — SINDHUJA PORTFOLIO
+   Theme: Scarlet Witch Crimson Atmosphere × Editorial Haute Layout
+   ========================================================================== */
+
+:root {
+  --color-bg: #080608;
+  --color-crimson-deep: #551321;
+  --color-scarlet: #B3213C;
+  --color-scarlet-glow: rgba(179, 33, 60, 0.45);
+  --color-ivory: #F4EEE9;
+  --color-rose: #D9C8C4;
+  --font-serif: 'Cinzel', serif;
+  --font-editorial: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Viewport Container */
+.hero-viewport {
+  --hero-name-size: clamp(3.6rem, 7.6vw, 6.8rem);
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  height: 100vh;
+  min-height: 640px;
+  overflow: hidden;
+  background-color: var(--color-bg);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  user-select: none;
+}
+
+/* ==========================================================================
+   1. BACKGROUND VIDEO LAYER (STOPS ON FLOATING RED CLOTH)
+   ========================================================================== */
+.hero-video-container {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  filter: contrast(106%) saturate(108%);
+}
+
+/* Subtle Edge Contrast Vignette & Soft Scrim behind left typography */
+.hero-cinematic-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 58% 48% at 22% 58%, rgba(8, 6, 8, 0.55) 0%, rgba(8, 6, 8, 0.22) 55%, transparent 85%),
+    linear-gradient(90deg, rgba(8, 6, 8, 0.52) 0%, rgba(8, 6, 8, 0.16) 48%, transparent 78%),
+    linear-gradient(180deg, rgba(8, 6, 8, 0.6) 0%, transparent 16%),
+    linear-gradient(0deg, rgba(8, 6, 8, 0.68) 0%, transparent 18%);
+}
+
+/* Autoplay Fallback Trigger */
+.hero-autoplay-fallback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  background: rgba(85, 19, 33, 0.9);
+  border: 1px solid var(--color-scarlet);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.25em;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 999px;
+  box-shadow: 0 0 35px rgba(179, 33, 60, 0.5);
+  transition: background 0.35s ease, transform 0.35s ease;
+}
+
+.hero-autoplay-fallback:hover {
+  background: var(--color-scarlet);
+  transform: translate(-50%, -50%) scale(1.04);
+}
+
+/* Unobtrusive Floating Skip Button during intro playback */
+.hero-floating-skip {
+  position: absolute;
+  bottom: 2.25rem;
+  right: clamp(2rem, 5vw, 4.5rem);
+  z-index: 25;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(8, 6, 8, 0.55);
+  border: 1px solid rgba(217, 200, 196, 0.22);
+  border-radius: 999px;
+  padding: 8px 16px;
+  color: var(--color-rose);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.hero-floating-skip:hover {
+  color: var(--color-ivory);
+  border-color: var(--color-scarlet);
+  background: rgba(85, 19, 33, 0.55);
+}
+
+.skip-arrow {
+  color: var(--color-scarlet);
+}
+
+/* ==========================================================================
+   3. FOREGROUND LAYER & TOP NAV (MATCHING MOCKUP)
+   ========================================================================== */
+.hero-content-layer {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.25rem clamp(2rem, 5vw, 4.5rem);
+}
+
+/* Top Nav */
+.hero-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s,
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s;
+}
+
+.hero-nav.revealed {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Brand: S. | PERSONAL PORTFOLIO */
+.hero-brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-monogram {
+  display: inline-flex;
+  align-items: baseline;
+  text-decoration: none;
+  font-family: var(--font-serif);
+  font-size: 2.15rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-ivory);
+  letter-spacing: -0.02em;
+  transition: opacity 0.3s ease;
+}
+
+.brand-monogram:hover {
+  opacity: 0.85;
+}
+
+.brand-dot {
+  color: var(--color-ivory);
+  margin-left: 1px;
+}
+
+.brand-v-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(217, 200, 196, 0.28);
+  margin: 0 18px;
+}
+
+.brand-titles-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title-line {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  color: var(--color-rose);
+}
+
+/* Desktop Nav Links */
+.hero-nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.8rem, 3vw, 3.1rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-nav-links li {
+  position: relative;
+}
+
+.hero-nav-links a {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-rose);
+  text-decoration: none;
+  padding: 6px 0;
+  transition: color 0.3s ease;
+}
+
+.hero-nav-links a:hover {
+  color: var(--color-ivory);
+}
+
+/* Active indicator matching mockup under ABOUT */
+.hero-nav-links li.active-item a {
+  color: var(--color-ivory);
+}
+
+.hero-nav-links li.active-item::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--color-scarlet);
+  box-shadow: 0 0 8px rgba(179, 33, 60, 0.65);
+}
+
+.hero-mobile-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 38px;
+  height: 38px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  z-index: 60;
+}
+
+.hamburger-line {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--color-ivory);
+  transition: transform 0.3s ease;
+}
+
+/* Mobile Drawer */
+.hero-mobile-drawer {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .hero-nav-links {
+    display: none;
+  }
+
+  .hero-mobile-toggle {
+    display: flex;
+  }
+
+  .hero-mobile-drawer {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(8, 6, 8, 0.96);
+    backdrop-filter: blur(20px);
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .hero-mobile-drawer.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-drawer-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 2.5rem;
+  }
+
+  .mobile-drawer-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--color-scarlet);
+    margin-bottom: 2rem;
+    font-weight: 600;
+  }
+
+  .mobile-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .mobile-nav-list a {
+    font-family: var(--font-serif);
+    font-size: 1.85rem;
+    letter-spacing: 0.1em;
+    color: var(--color-ivory);
+    text-decoration: none;
+  }
+
+  .mobile-drawer-footer {
+    margin-top: auto;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--color-rose);
+  }
+}
+
+/* ==========================================================================
+   4. LEFT-ALIGNED CENTERPIECE (STAGGERED REVEAL, RAZOR CRISP)
+   ========================================================================== */
+.hero-left-centerpiece {
+  position: absolute;
+  left: clamp(2rem, 5vw, 4.5rem);
+  bottom: clamp(14%, 21vh, 26%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  max-width: 720px;
+  pointer-events: none;
+}
+
+.hero-left-centerpiece.revealed {
+  pointer-events: auto;
+}
+
+/* Staggered child animations triggered cleanly on .revealed */
+.centerpiece-name-wrap,
+.centerpiece-statement,
+.centerpiece-support-wrap,
+.centerpiece-cta-wrap {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.hero-left-centerpiece.revealed .centerpiece-name-wrap {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0s,
+    transform 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0s;
+}
+
+.hero-left-centerpiece.revealed .centerpiece-statement {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.32s,
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.32s;
+}
+
+.hero-left-centerpiece.revealed .centerpiece-support-wrap {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.58s,
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.58s;
+}
+
+.hero-left-centerpiece.revealed .centerpiece-cta-wrap {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.82s,
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.82s;
+}
+
+/* Step 1: SINDHUJA. in Soft Ivory Serif */
+.centerpiece-name-wrap {
+  overflow: visible;
+  margin-bottom: 0.45rem;
+}
+
+.centerpiece-name {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--hero-name-size);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 0.94;
+  color: var(--color-ivory);
+  text-transform: uppercase;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.78);
+}
+
+.name-period {
+  color: var(--color-ivory);
+}
+
+/* Step 2: I WAS NEVER MADE TO BLEND IN. — Width-locked to SINDHUJA with high-impact crimson radiance */
+.centerpiece-statement {
+  margin: 0.2rem 0 1.35rem 0;
+  padding-left: 0.14em;
+  font-family: var(--font-serif);
+  font-size: calc(var(--hero-name-size) * 0.198);
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #FFB0BE;
+  text-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.98),
+    0 0 18px rgba(220, 28, 62, 0.95),
+    0 0 38px rgba(179, 33, 60, 0.85);
+  line-height: 1.45;
+}
+
+/* Step 3: Supporting Line with Leading Wavy Arrow */
+.centerpiece-support-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 2.3rem;
+}
+
+.support-arrow-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.arrow-wave-svg {
+  color: rgba(179, 33, 60, 0.78);
+  display: block;
+  flex-shrink: 0;
+}
+
+.arrow-head {
+  color: rgba(179, 33, 60, 0.8);
+  font-size: 0.72rem;
+  margin-top: -1px;
+}
+
+.centerpiece-support-text {
+  font-family: var(--font-mono);
+  font-size: clamp(0.76rem, 1vw, 0.9rem);
+  color: var(--color-rose);
+  letter-spacing: 0.04em;
+  margin: 0;
+  font-weight: 300;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+}
+
+/* Step 4: Rectangular CTA Button [ ENTER MY WORLD ↗ ] */
+.centerpiece-cta-wrap {
+  display: flex;
+}
+
+.centerpiece-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 28px;
+  background: rgba(8, 6, 8, 0.55);
+  border: 1px solid rgba(179, 33, 60, 0.68);
+  border-radius: 0;
+  color: var(--color-ivory);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.centerpiece-cta-btn:hover {
+  background: rgba(85, 19, 33, 0.72);
+  border-color: var(--color-scarlet);
+  box-shadow: 0 0 26px rgba(179, 33, 60, 0.38);
+}
+
+.cta-icon {
+  color: var(--color-ivory);
+  font-size: 0.85rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.centerpiece-cta-btn:hover .cta-icon {
+  transform: translate(2px, -2px);
+  color: var(--color-scarlet);
+}
+
+/* ==========================================================================
+   5. BOTTOM ELEMENTS (MATCHING MOCKUP)
+   ========================================================================== */
+.hero-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 0.45rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.75s;
+}
+
+.hero-bottom-bar.revealed {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bottom-left-tag {
+  display: flex;
+  align-items: center;
+}
+
+.bottom-left-tag .tag-text {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-rose);
+  opacity: 0.65;
+}
+
+.bottom-right-scroll {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: transparent;
+  border: none;
+  color: var(--color-rose);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 6px 0;
+  opacity: 0.78;
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.bottom-right-scroll:hover {
+  color: var(--color-ivory);
+  opacity: 1;
+}
+
+.scroll-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(217, 200, 196, 0.28);
+}
+
+.scroll-sparkle-star {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVENESS (MOBILE & TABLET)
+   ========================================================================== */
+@media (max-width: 900px) {
+  .hero-viewport {
+    --hero-name-size: clamp(2.8rem, 12.2vw, 4.6rem);
+  }
+
+  .hero-cinematic-overlay {
+    background: linear-gradient(90deg, rgba(8, 6, 8, 0.72) 0%, rgba(8, 6, 8, 0.28) 100%);
+  }
+
+  .hero-left-centerpiece {
+    left: 1.5rem;
+    right: 1.5rem;
+    max-width: 100%;
+    bottom: 16%;
+  }
+
+  .centerpiece-name {
+    letter-spacing: 0.04em;
+  }
+
+  .centerpiece-statement {
+    padding-left: 0.1em;
+    font-size: clamp(0.62rem, 2.25vw, 0.86rem);
+    letter-spacing: 0.26em;
+    white-space: normal;
+  }
+
+  .centerpiece-support-wrap {
+    margin-bottom: 1.75rem;
+  }
+
+  .centerpiece-cta-btn {
+    padding: 11px 24px;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+  }
+
+  .hero-floating-skip {
+    bottom: 1.5rem;
+    right: 1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-content-layer {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .hero-bottom-bar {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-nav,
+  .hero-left-centerpiece,
+  .hero-bottom-bar,
+  .centerpiece-name-wrap,
+  .centerpiece-statement,
+  .centerpiece-support-wrap,
+  .centerpiece-cta-wrap {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

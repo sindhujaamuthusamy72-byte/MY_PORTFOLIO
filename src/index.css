@@ -1,0 +1,76 @@
+/* ==========================================================================
+   GLOBAL RESET & BASE STYLES — SINDHUJA PORTFOLIO
+   ========================================================================== */
+
+@import './styles/tokens.css';
+
+:root {
+  --bg-color: #080608;
+  --text-main: #F4EEE9;
+  --text-muted: #D9C8C4;
+  --crimson-deep: #551321;
+  --scarlet: #B3213C;
+  --scarlet-glow: rgba(179, 33, 60, 0.45);
+
+  --font-serif: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+  --font-editorial: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  color-scheme: dark;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--scarlet-bg, #080608);
+  color: var(--scarlet-ivory, #F4EEE9);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--scarlet-bg, #080608);
+  color: var(--scarlet-ivory, #F4EEE9);
+  overflow-x: clip;
+  width: 100%;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080608;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #551321;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B3213C;
+}
+
+/* Selection highlight */
+::selection {
+  background: var(--scarlet-crimson-deep, #551321);
+  color: var(--scarlet-ivory, #F4EEE9);
+}

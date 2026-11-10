@@ -1,0 +1,66 @@
+.scarlet-cursor-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.scarlet-cursor-root.visible {
+  opacity: 1;
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  margin-left: -3px;
+  background-color: var(--scarlet-ivory);
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 10px rgba(179, 33, 60, 0.8);
+  transition: transform 0.05s linear;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 34px;
+  margin-top: -17px;
+  margin-left: -17px;
+  border: 1px solid rgba(179, 33, 60, 0.65);
+  background: radial-gradient(circle, rgba(179, 33, 60, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              margin 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              background-color 0.3s ease;
+}
+
+.scarlet-cursor-root.hovered .cursor-ring {
+  width: 52px;
+  height: 52px;
+  margin-top: -26px;
+  margin-left: -26px;
+  border-color: var(--scarlet-primary);
+  background: radial-gradient(circle, rgba(179, 33, 60, 0.28) 0%, transparent 75%);
+  box-shadow: 0 0 20px rgba(179, 33, 60, 0.4);
+}
+
+@media (pointer: coarse) {
+  .scarlet-cursor-root {
+    display: none;
+  }
+}
+
